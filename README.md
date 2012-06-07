@@ -57,7 +57,7 @@ An alternative to the block tag, is the following:
 
 Using `with` in the tag indicates that the iteration will not occur in a block,
 but instead in the template that follows `with`. Within this template, the
-parent template`s full context is available, with an added `paginationplus`
+parent template's full context is available, with an added `paginationplus`
 variable. The template passed to the tag needn't be a string, any available
 template variable will do.
     
@@ -83,5 +83,5 @@ will be iterated over, you can set the `PAGINATIONPLUS_MAX_DISTANCE`.
 
 For instance, when `PAGINATIONPLUS_MAX_DISTANCE` is set to 2, the following
 sequence will be iterated over when the number of pages is 99 and the current
-page is 30: `[1, None, 28, 29, 30, 31, 32, 99]`. And when the current page is 3,
+page is 30: `[1, None, 28, 29, 30, 31, 32, None, 99]`. And when the current page is 3,
 the sequence will be `[1, 2, 3, 4, 5, None, 99]`.
