@@ -79,7 +79,7 @@ To disable this behavior, and iterate over all available page numbers, you can
 set the `PAGINATIONPLUS_CONTIGUOUS` setting to `True` in your project's settings.
 
 To control the number of page numbers before and after the current page that
-will be iterated over, you can set the `PAGINATIONPLUS_MAX_DISTANCE`.
+will be iterated over, you can set the `PAGINATIONPLUS_MAX_DISTANCE` option.
 
 For instance, when `PAGINATIONPLUS_MAX_DISTANCE` is set to 2, the following
 sequence will be iterated over when the number of pages is 99 and the current
