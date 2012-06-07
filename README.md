@@ -27,8 +27,8 @@ paginated view. The remaining arguments are the same as the arguments passed to
 the built-in `{% url %}` tag, minus the argument that takes the value for the
 page number in the view, eg. `page` in the generic view `ListView`.
 
-The block iterates over the page numbers available from the Paginator object
-associated with the Page object that is passed as the first argument to the
+The block iterates over the page numbers available from the `Paginator` object
+associated with the `Page` object that is passed as the first argument to the
 opening tag.
 
 The block's content is rendered once for each iteration, and within this block,
