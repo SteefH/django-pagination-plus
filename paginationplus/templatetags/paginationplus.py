@@ -1,6 +1,6 @@
-"""This template tag module is used for displaying pagination links in paginated
-Django views. It exposes a template tag `{% paginationplus %}` that will take
-care of iterating over the page numbers.
+"""This template tag library is used for displaying pagination links in
+paginated Django views. It exposes a template tag `{% paginationplus %}` that
+will take care of iterating over the page numbers.
 
 Usage
 -----
@@ -24,8 +24,8 @@ paginated view. The remaining arguments are the same as the arguments passed to
 the built-in `{% url %}` tag, minus the argument that takes the value for the
 page number in the view, eg. `page` in the generic view `ListView`.
 
-The block iterates over the page numbers available from the Paginator object
-associated with the Page object that is passed as the first argument to the
+The block iterates over the page numbers available from the `Paginator` object
+associated with the `Page` object that is passed as the first argument to the
 opening tag.
 
 The block's content is rendered once for each iteration, and within this block,
@@ -54,7 +54,7 @@ An alternative to the block tag, is the following:
 
 Using `with` in the tag indicates that the iteration will not occur in a block,
 but instead in the template that follows `with`. Within this template, the
-parent template`s full context is available, with an added `paginationplus`
+parent template's full context is available, with an added `paginationplus`
 variable. The template passed to the tag needn't be a string, any available
 template variable will do.
     
@@ -73,16 +73,16 @@ its `is_filler` attribute set to `True`, the `number` and `url` attributes will
 be set to `None`, and `is_current` will be set to `False`.
 
 To disable this behavior, and iterate over all available page numbers, you can
-set the `PAGINATIONPLUS_CONTIGUOUS` setting to `True` in your project's settings.
+set the `PAGINATIONPLUS_CONTIGUOUS` setting to `True` in your project's
+settings.
 
 To control the number of page numbers before and after the current page that
 will be iterated over, you can set the `PAGINATIONPLUS_MAX_DISTANCE`.
 
 For instance, when `PAGINATIONPLUS_MAX_DISTANCE` is set to 2, the following
 sequence will be iterated over when the number of pages is 99 and the current
-page is 30: `[1, None, 28, 29, 30, 31, 32, 99]`. And when the current page is 3,
-the sequence will be `[1, 2, 3, 4, 5, None, 99]`.
-
+page is 30: `[1, None, 28, 29, 30, 31, 32, None, 99]`. And when the current page
+is 3, the sequence will be `[1, 2, 3, 4, 5, None, 99]`.
 """
 
 
@@ -154,7 +154,9 @@ class PaginationPlusNode(template.Node):
             if self.max_distance < 1:
                 raise ValueError
         except (TypeError, ValueError):
-            raise ImproperlyConfigured('PAGINATIONPLUS_MAX_DISTANCE must be a number greater than 0')
+            raise ImproperlyConfigured(
+                'PAGINATIONPLUS_MAX_DISTANCE must be a number greater than 0'
+            )
         self.contiguous = getattr(settings, 'PAGINATIONPLUS_CONTIGUOUS', False)
 
     def pagination(self, partial_url):
@@ -214,14 +216,18 @@ class PaginationPlusNode(template.Node):
         page = page.resolve(context)
         self.page = page
         if not isinstance(page, paginator.Page):
-            raise template.TemplateSyntaxError('%r is not a valid Page object' % self.page)
+            raise template.TemplateSyntaxError(
+                '%r is not a valid Page object' % self.page
+            )
         url_args, url_kwargs = self.url_kwargs_to_dict(context)
         partial_url = PartialUrl(self.url_name, *url_args, **url_kwargs)
 
         if not isinstance(self.nodelist_or_include, template.NodeList):
             # 'with' used in tag, template include is assumed
-            nodelist_var = template.Variable(self.nodelist_or_include).resolve(context)
-            nodelist = template.loader.get_template(nodelist_var)
+            nodelist_var = template.Variable(self.nodelist_or_include)
+            nodelist = template.loader.get_template(
+                nodelist_var.resolve(context)
+            )
         else:
             nodelist = self.nodelist_or_include
         result = []
@@ -250,7 +256,9 @@ def paginationplus(parser, token):
     try:
         tag_name, page, url_name = contents[:3]
     except ValueError:
-        raise template.TemplateSyntaxError('%r tag expects at least 2 arguments', contents[0])
+        raise template.TemplateSyntaxError(
+            '%r tag expects at least 2 arguments', contents[0]
+        )
     url_kwargs = contents[3:]
     if contents[-2] == 'with':
         include_template = contents[-1]
