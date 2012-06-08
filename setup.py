@@ -4,17 +4,17 @@ import os
 def read(fname):
     return open(os.path.join(os.path.dirname(__file__), fname)).read()
 
-README = read('README.md')
+README = read('README.rst')
 
 setup(
     name = "django-pagination-plus",
     packages = find_packages(),
-    version = "0.0.1",
+    version = "0.0.2",
     author = "Stefan van der Haven",
     author_email = "stefan@steeffie.net",
     url = "https://github.com/SteefH/django-pagination-plus",
-    description = "Utilities for Django pagination",
-    long_description = "\n\n".join([README]),
+    description = "Utilities for pagination in Django templates",
+    long_description = README,
     classifiers = [
         'Development Status :: 4 - Beta',
         'Framework :: Django',
