@@ -164,12 +164,12 @@ class PaginationPlusNode(template.Node):
         paginator = page.paginator
         if self.contiguous:
             for p in itertools.imap(
-                lambda p: PaginationPage(p, page.number, partial_url),
+                lambda p: PaginationPage(p, p == page.number, partial_url),
                 paginator.page_range
             ):
                 yield p
             return
-        yield PaginationPage(1, page.number, partial_url)
+        yield PaginationPage(1, page.number == 1, partial_url)
         last = 1
         startRange = (1, 1)
         currentRange = (
@@ -178,12 +178,12 @@ class PaginationPlusNode(template.Node):
         endRange = (paginator.num_pages, paginator.num_pages)
         for r in (startRange, currentRange, endRange):
             if r[0] > last + 1:
-                yield PaginationPage(None, page.number, partial_url)
+                yield PaginationPage(None, False, partial_url)
             rangeStart = max(min(paginator.num_pages, r[0]), last + 1)
             rangeEnd = min(paginator.num_pages, r[1])
             if rangeStart <= rangeEnd:
                 for p in xrange(rangeStart, rangeEnd + 1):
-                    yield PaginationPage(p, page.number, partial_url)
+                    yield PaginationPage(p, p == page.number, partial_url)
                 last = rangeEnd
     
     def url_kwargs_to_dict(self, context):
