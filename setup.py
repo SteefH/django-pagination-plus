@@ -9,7 +9,7 @@ README = read('README.rst')
 setup(
     name = "django-pagination-plus",
     packages = find_packages(),
-    version = "0.0.2",
+    version = "0.0.3",
     author = "Stefan van der Haven",
     author_email = "stefan@steeffie.net",
     url = "https://github.com/SteefH/django-pagination-plus",

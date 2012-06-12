@@ -266,5 +266,5 @@ def paginationplus(parser, token):
         nodelist_or_include = include_template
     else:
         nodelist_or_include = parser.parse(('endpaginationplus',))
-    parser.delete_first_token()
+        parser.delete_first_token()
     return PaginationPlusNode(nodelist_or_include, page, url_name, url_kwargs)
