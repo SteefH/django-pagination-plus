@@ -12,15 +12,13 @@ Usage
 Add ``paginationplus`` to your ``INSTALLED_APPS`` in your settings.
 
 At the start of the template for your paginated view, use the following to load
-the tag module:
+the tag module: ::
 
-::
     {% load paginationplus %}
 
 Then, at the position you want your pagination links to appear, use the
-following block tag.
+following block tag. ::
 
-::
     {% paginationplus page_obj url_name url_arg1=... url_arg2=... %}
         ...
     {% endpaginationplus %}
@@ -54,9 +52,8 @@ This template variable exposes four attributes:
 Single tag usage
 ----------------
 
-An alternative to the block tag, is the following:
+An alternative to the block tag, is the following: ::
 
-::
     {% paginationplus page_obj url_name url_arg1=... url_arg2=... ... with 'template/name.html' %}
 
 Using ``with`` in the tag indicates that the iteration will not occur in a block,
